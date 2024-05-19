@@ -10,13 +10,18 @@ import javafx.scene.control.TableView;
 
 import model.Process;
 
-public class ProcessesTableController implements Initializable{
+public class ProcessesTableController implements Initializable {
 
-    @FXML private TableView<Process> processesTable;
-    @FXML private TableColumn<Process, String> processName;
-    @FXML private TableColumn<Process, Integer> processSize;
-    @FXML private TableColumn<Process, Integer> processArrivalTime;
-    @FXML private TableColumn<Process, Integer> processDuration;
+    @FXML
+    private TableView<Process> processesTable;
+    @FXML
+    private TableColumn<Process, String> processName;
+    @FXML
+    private TableColumn<Process, Integer> processSize;
+    @FXML
+    private TableColumn<Process, Integer> processArrivalTime;
+    @FXML
+    private TableColumn<Process, Integer> processDuration;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -5,13 +5,24 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Partition {
+public class Partition implements MemorySpace {
 
     private IntegerProperty number;
     private IntegerProperty location;
     private IntegerProperty size;
     private StringProperty status;
     private Process process;
+
+    private MemorySpace next;
+
+    @Override
+    public MemorySpace next() {
+        return next;
+    }
+
+    public void setNext(MemorySpace next) {
+        this.next = next;
+    }
 
     public Partition(Integer number, Integer location, Integer size, String status, Process process) {
         this.number = new SimpleIntegerProperty(number);
