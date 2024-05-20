@@ -15,4 +15,9 @@ En caso de usar VsCode:
 - [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack)
 - [Gradle for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-gradle)
 
+### Overview
+Diagrama de clases disponible [aquí](docs/classDiagram.md)
+
+![alt](docs/classDiagram.png)
+
 

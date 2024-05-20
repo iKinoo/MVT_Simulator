@@ -4,11 +4,18 @@ import java.util.ArrayList;
 
 public class Memory {
 
+    private static Memory instance;
+
     private MemorySpace head;
     private MemorySpace tail;
-    private final MemorySpace operatingSystemSpace;    
+    private final MemorySpace operatingSystemSpace;
+    private ArrayList<MemorySpace> memorySpaces = new ArrayList<>();
+    private final int memorySize = 64;
+    @SuppressWarnings("unused")
+    private int freeMemory = 54;
+    
 
-    public Memory() {
+    private Memory() {
         this.operatingSystemSpace = new Partition(
                 0,
                 0,
@@ -23,16 +30,16 @@ public class Memory {
                 "Libre");
         head = this.operatingSystemSpace;
         head.setNext(tail);
+
+        memorySpaces.add(operatingSystemSpace);
+        memorySpaces.add(tail);
     }
 
-    public void add(MemorySpace memorySpace) {
-        if (head == null) {
-            head = memorySpace;
-            tail = memorySpace;
-        } else {
-            tail.setNext(memorySpace);
-            tail = memorySpace;
+    public static Memory getInstance() {
+        if (instance == null) {
+            instance = new Memory();
         }
+        return instance;
     }
 
     public MemorySpace getHead() {
@@ -43,38 +50,28 @@ public class Memory {
         return tail;
     }
 
-    public void remove(MemorySpace memorySpace) {
-        MemorySpace current = head;
-        MemorySpace previous = null;
+    public MemorySpace getOperatingSystemSpace() {
+        return operatingSystemSpace;
+    }
 
-        while (current != null) {
-            if (current == memorySpace) {
-                if (previous == null) {
-                    head = current.next();
-                } else {
-                    previous.setNext(current.next());
-                }
-                break;
-            }
-            previous = current;
-            current = current.next();
+    public void addMemorySpace(MemorySpace memorySpace) {
+        
+        this.tail.setNext(memorySpace);
+        this.tail = memorySpace;
+        this.memorySpaces.add(memorySpace);
+
+        if (memorySpace instanceof Hole) {
+            this.freeMemory += memorySpace.getSizeProperty().getValue();
+        } else {
+            this.freeMemory -= memorySpace.getSizeProperty().getValue();
         }
     }
 
-    public void clear() {
-        head = null;
-        tail = null;
+    public int getMemorySize() {
+        return memorySize;
     }
 
     public ArrayList<MemorySpace> getMemorySpaces() {
-        ArrayList<MemorySpace> memorySpaces = new ArrayList<>();
-        MemorySpace current = head;
-
-        while (current != null) {
-            memorySpaces.add(current);
-            current = current.next();
-        }
-
         return memorySpaces;
     }
 }

@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.Hole;
+import model.Memory;
 
 public class HolesTableController implements Initializable {
 
@@ -22,19 +23,15 @@ public class HolesTableController implements Initializable {
     @FXML
     private TableColumn<Hole, String> holeStatus;
 
+    Memory memory = Memory.getInstance();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        holeNumber.setCellValueFactory(cellData -> cellData.getValue().getNumber().asObject());
-        holeLocation.setCellValueFactory(cellData -> cellData.getValue().getLocation().asObject());
-        holeSize.setCellValueFactory(cellData -> cellData.getValue().getSize().asObject());
-        holeStatus.setCellValueFactory(cellData -> cellData.getValue().getStatus());
-
-        holesTable.getItems().add(new Hole(1, 0, 10, "Free"));
-        holesTable.getItems().add(new Hole(2, 10, 20, "Free"));
-        holesTable.getItems().add(new Hole(3, 30, 5, "Free"));
-        holesTable.getItems().add(new Hole(4, 35, 15, "Free"));
-        holesTable.getItems().add(new Hole(5, 50, 10, "Free"));
+        holeNumber.setCellValueFactory(cellData -> cellData.getValue().getNumberProperty().asObject());
+        holeLocation.setCellValueFactory(cellData -> cellData.getValue().getLocationProperty().asObject());
+        holeSize.setCellValueFactory(cellData -> cellData.getValue().getSizeProperty().asObject());
+        holeStatus.setCellValueFactory(cellData -> cellData.getValue().getStatusProperty());
 
     }
 

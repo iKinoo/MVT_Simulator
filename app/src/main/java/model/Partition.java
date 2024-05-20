@@ -7,10 +7,10 @@ import javafx.beans.property.StringProperty;
 
 public class Partition implements MemorySpace {
 
-    private IntegerProperty number;
-    private IntegerProperty location;
-    private IntegerProperty size;
-    private StringProperty status;
+    private Integer number;
+    private Integer location;
+    private Integer size;
+    private String status;
     private Process process;
 
     private MemorySpace next;
@@ -20,36 +20,41 @@ public class Partition implements MemorySpace {
         return next;
     }
 
+    @Override
+    public IntegerProperty getEndProperty() {
+        return new SimpleIntegerProperty(location + size - 1);
+    }
+
     public void setNext(MemorySpace next) {
         this.next = next;
     }
 
     public Partition(Integer number, Integer location, Integer size, String status, Process process) {
-        this.number = new SimpleIntegerProperty(number);
-        this.location = new SimpleIntegerProperty(location);
-        this.size = new SimpleIntegerProperty(size);
-        this.status = new SimpleStringProperty(status);
+        this.number = number;
+        this.location = location;
+        this.size = size;
+        this.status = status;
         this.process = process;
     }
 
-    public IntegerProperty getNumber() {
-        return number;
+    public IntegerProperty getNumberProperty() {
+        return new SimpleIntegerProperty(number);
     }
 
-    public IntegerProperty getLocation() {
-        return location;
+    public IntegerProperty getLocationProperty() {
+        return new SimpleIntegerProperty(location);
     }
 
-    public IntegerProperty getSize() {
-        return size;
+    public IntegerProperty getSizeProperty() {
+        return new SimpleIntegerProperty(size);
     }
 
-    public StringProperty getStatus() {
-        return status;
+    public StringProperty getStatusProperty() {
+        return new SimpleStringProperty(status);
     }
 
     public Process getProcess() {
-        process.getName();
+        process.getNameProperty();
         return process;
     }
 

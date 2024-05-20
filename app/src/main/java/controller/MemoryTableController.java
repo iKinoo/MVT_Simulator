@@ -7,11 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import model.Hole;
 import model.Memory;
 import model.MemorySpace;
-import model.Partition;
-import model.Process;
 
 public class MemoryTableController implements Initializable {
 
@@ -26,17 +23,19 @@ public class MemoryTableController implements Initializable {
     @FXML
     private TableColumn<MemorySpace, String> memorySpaceStatus;
 
+    Memory memory = Memory.getInstance();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        memorySpaceNumber.setCellValueFactory(cellData -> cellData.getValue().getNumber().asObject());
-        memorySpaceLocation.setCellValueFactory(cellData -> cellData.getValue().getLocation().asObject());
-        memorySpaceSize.setCellValueFactory(cellData -> cellData.getValue().getSize().asObject());
-        memorySpaceStatus.setCellValueFactory(cellData -> cellData.getValue().getStatus());
-
-        Memory memory = new Memory();
+        memorySpaceNumber.setCellValueFactory(cellData -> cellData.getValue().getNumberProperty().asObject());
+        memorySpaceLocation.setCellValueFactory(cellData -> cellData.getValue().getLocationProperty().asObject());
+        memorySpaceSize.setCellValueFactory(cellData -> cellData.getValue().getSizeProperty().asObject());
+        memorySpaceStatus.setCellValueFactory(cellData -> cellData.getValue().getStatusProperty());
 
         memoryTable.getItems().addAll(memory.getMemorySpaces());
     }
+
+  
 
 }

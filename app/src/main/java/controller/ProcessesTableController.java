@@ -25,11 +25,9 @@ public class ProcessesTableController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        processName.setCellValueFactory(cellData -> cellData.getValue().getName());
-        processSize.setCellValueFactory(cellData -> cellData.getValue().getSize().asObject());
-        processArrivalTime.setCellValueFactory(cellData -> cellData.getValue().getArrivalTime().asObject());
-        processDuration.setCellValueFactory(cellData -> cellData.getValue().getDuration().asObject());
-
-        processesTable.getItems().add(new Process("P1", 10, 0, 5));
+        processName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+        processSize.setCellValueFactory(cellData -> cellData.getValue().getSizeProperty().asObject());
+        processArrivalTime.setCellValueFactory(cellData -> cellData.getValue().getArrivalTimeProperty().asObject());
+        processDuration.setCellValueFactory(cellData -> cellData.getValue().getDurationProperty().asObject());
     }
 }

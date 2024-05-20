@@ -4,6 +4,8 @@
 package main;
 
 import javafx.application.Application;
+import model.Memory;
+import model.Hole;
 
 public class App {
     public String getGreeting() {
@@ -13,6 +15,10 @@ public class App {
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
 
+        Memory memory = Memory.getInstance();
+        memory.addMemorySpace(new Hole(2, 10, 10, "Libre"));
+
         Application.launch(controller.GeneralController.class, args);
+
     }
 }

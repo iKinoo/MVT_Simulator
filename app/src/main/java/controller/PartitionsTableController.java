@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.Partition;
-import model.Process;
 
 public class PartitionsTableController implements Initializable {
 
@@ -28,18 +27,11 @@ public class PartitionsTableController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        partitionNumber.setCellValueFactory(cellData -> cellData.getValue().getNumber().asObject());
-        partitionLocation.setCellValueFactory(cellData -> cellData.getValue().getLocation().asObject());
-        partitionSize.setCellValueFactory(cellData -> cellData.getValue().getSize().asObject());
-        partitionStatus.setCellValueFactory(cellData -> cellData.getValue().getStatus());
-        partitionProcess.setCellValueFactory(cellData -> cellData.getValue().getProcess().getName());
-
-        partitionsTable.getItems().add(new Partition(1, 0, 10, "Free", new Process("paco", 10, 0, 5)));
-        partitionsTable.getItems().add(new Partition(2, 10, 20, "Free", new Process("paco", 10, 0, 5)));
-        partitionsTable.getItems().add(new Partition(3, 30, 5, "Free", new Process("paco", 10, 0, 5)));
-        partitionsTable.getItems().add(new Partition(4, 35, 15, "Free", new Process("paco", 10, 0, 5)));
-        partitionsTable.getItems().add(new Partition(5, 50, 10, "Free", new Process("paco", 10, 0, 5)));
-
+        partitionNumber.setCellValueFactory(cellData -> cellData.getValue().getNumberProperty().asObject());
+        partitionLocation.setCellValueFactory(cellData -> cellData.getValue().getLocationProperty().asObject());
+        partitionSize.setCellValueFactory(cellData -> cellData.getValue().getSizeProperty().asObject());
+        partitionStatus.setCellValueFactory(cellData -> cellData.getValue().getStatusProperty());
+        partitionProcess.setCellValueFactory(cellData -> cellData.getValue().getProcess().getNameProperty());
     }
 
 }
