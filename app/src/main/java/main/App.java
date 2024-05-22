@@ -3,9 +3,11 @@
  */
 package main;
 
+import controller.HolesTableController;
 import javafx.application.Application;
 import model.Memory;
 import model.Hole;
+import model.Process;
 
 public class App {
     public String getGreeting() {
@@ -16,9 +18,24 @@ public class App {
         System.out.println(new App().getGreeting());
 
         Memory memory = Memory.getInstance();
-        memory.addMemorySpace(new Hole(2, 10, 10, "Libre"));
+        memory.addProcess(new model.Process("P1",10,2,1));
+
+        Process p2 = new model.Process("P2",10,2,1);
+        memory.addProcess(p2);
+
+        Process p3 = new model.Process("P3",10,2,1);
+        memory.addProcess(p3);
+
+        Process p4 = new model.Process("P4",10,2,1);
+        memory.addProcess(p4);
+
+        memory.addProcess(new model.Process("P5",10,2,1));
+
+        memory.removeProcess(p2);
+        memory.removeProcess(p4);
+        memory.removeProcess(p3);
+
 
         Application.launch(controller.GeneralController.class, args);
-
     }
 }

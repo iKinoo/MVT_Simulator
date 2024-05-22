@@ -14,10 +14,21 @@ public class Partition implements MemorySpace {
     private Process process;
 
     private MemorySpace next;
+    private MemorySpace previous;
 
     @Override
     public MemorySpace next() {
         return next;
+    }
+
+    @Override
+    public MemorySpace previous() {
+        return previous;
+    }
+
+    @Override
+    public void setPrevious(MemorySpace previous) {
+        this.previous = previous;
     }
 
     @Override

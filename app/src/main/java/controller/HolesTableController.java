@@ -23,7 +23,7 @@ public class HolesTableController implements Initializable {
     @FXML
     private TableColumn<Hole, String> holeStatus;
 
-    Memory memory = Memory.getInstance();
+    private Memory memory = Memory.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -32,7 +32,7 @@ public class HolesTableController implements Initializable {
         holeLocation.setCellValueFactory(cellData -> cellData.getValue().getLocationProperty().asObject());
         holeSize.setCellValueFactory(cellData -> cellData.getValue().getSizeProperty().asObject());
         holeStatus.setCellValueFactory(cellData -> cellData.getValue().getStatusProperty());
-
+        
+        holesTable.getItems().setAll(memory.getHoles());
     }
-
 }

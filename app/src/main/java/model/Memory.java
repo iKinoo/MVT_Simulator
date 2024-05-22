@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+
 public class Memory {
 
     private static Memory instance;
@@ -9,17 +10,16 @@ public class Memory {
     private MemorySpace head;
     private MemorySpace tail;
     private final MemorySpace operatingSystemSpace;
-    private ArrayList<MemorySpace> memorySpaces = new ArrayList<>();
+    public ArrayList<MemorySpace> memorySpaces = new ArrayList<>();
     private final int memorySize = 64;
     @SuppressWarnings("unused")
     private int freeMemory = 54;
-    
 
     private Memory() {
         this.operatingSystemSpace = new Partition(
                 0,
                 0,
-                10,
+                9,
                 "Activo",
                 new Process("Sistema Operativo", 10, 0, 0));
 
@@ -30,6 +30,8 @@ public class Memory {
                 "Libre");
         head = this.operatingSystemSpace;
         head.setNext(tail);
+        tail.setPrevious(head);
+        head.setPrevious(null);
 
         memorySpaces.add(operatingSystemSpace);
         memorySpaces.add(tail);
@@ -40,6 +42,133 @@ public class Memory {
             instance = new Memory();
         }
         return instance;
+    }
+
+    public ArrayList<Hole> getHoles() {
+        ArrayList<Hole> holes = new ArrayList<>();
+        for (MemorySpace memorySpace : memorySpaces) {
+            if (memorySpace instanceof Hole) {
+                holes.add((Hole) memorySpace);
+            }
+        }
+        return holes;
+    }
+
+    public ArrayList<Partition> getPartitions() {
+        ArrayList<Partition> partitions = new ArrayList<>();
+        for (MemorySpace memorySpace : memorySpaces) {
+            if (memorySpace instanceof Partition) {
+                partitions.add((Partition) memorySpace);
+            }
+        }
+        return partitions;
+    }
+
+    public ArrayList<Process> getProcesses() {
+        ArrayList<Process> processes = new ArrayList<>();
+        for (MemorySpace memorySpace : memorySpaces) {
+            if (memorySpace instanceof Partition) {
+                Partition partition = (Partition) memorySpace;
+                if (partition.getProcess() != null) {
+                    processes.add(partition.getProcess());
+                }
+            }
+        }
+        return processes;
+    }
+
+    public void addProcess(Process process) {
+
+        for (MemorySpace memorySpace : memorySpaces) {
+            if (memorySpace instanceof Hole) {
+                Hole hole = (Hole) memorySpace;
+                if (hole.getSizeProperty().getValue() >= process.getSizeProperty().getValue()) {
+                    Partition partition = new Partition(
+                            hole.getNumberProperty().getValue(),
+                            hole.getLocationProperty().getValue(),
+                            process.getSizeProperty().getValue(),
+                            "Activo",
+                            process);
+
+                    partition.setNext(hole);
+                    partition.setPrevious(hole.previous());
+
+                    hole.previous().setNext(partition);
+                    hole.setPrevious(partition);
+
+                    hole.setSize(hole.getSizeProperty().getValue() - process.getSizeProperty().getValue());
+                    hole.setLocation(hole.getLocationProperty().getValue() + process.getSizeProperty().getValue());
+                    memorySpaces.add(memorySpaces.indexOf(hole), partition);
+                    break;
+                    
+                }
+            }
+        }
+    }
+
+    public void removeProcess(Process process) {
+            
+            for (MemorySpace memorySpace : memorySpaces) {
+                if (memorySpace instanceof Partition 
+                    && ((Partition) memorySpace).getProcess().equals(process)){
+
+                    Partition partition = (Partition) memorySpace;
+
+                    // case [partition]-->[process] --> [hole] 
+                    if (partition.previous() instanceof Partition
+                        && partition.next() instanceof Hole
+                        ) {
+                        Hole hole = (Hole) partition.next();
+                        hole.setSize(hole.getSizeProperty().getValue() + partition.getSizeProperty().getValue());
+                        hole.setLocation(hole.getLocationProperty().getValue() - partition.getSizeProperty().getValue());
+                        hole.setPrevious(partition.previous());
+                        memorySpaces.remove(partition);
+                        break;
+                    }
+                    // case [hole]-->[process] --> [partition]
+                    if (partition.previous() instanceof Hole
+                        && partition.next() instanceof Partition
+                        ) {
+                        Hole hole = (Hole) partition.previous();
+                        hole.setSize(hole.getSizeProperty().getValue() + partition.getSizeProperty().getValue());
+                        partition.previous().setNext(partition.next());
+                        partition.next().setPrevious(partition.previous());
+                        memorySpaces.remove(partition);
+                        break;
+                    }
+                    // case [partition]-->[process] --> [partition]
+                    if (partition.previous() instanceof Partition
+                        && partition.next() instanceof Partition
+                        ) {
+                        Hole hole = new Hole(
+                            partition.getNumberProperty().getValue(),
+                            partition.getLocationProperty().getValue(),
+                            partition.getSizeProperty().getValue(),
+                            "Libre");
+                        hole.setPrevious(partition.previous());
+                        hole.setNext(partition.next());
+                        partition.previous().setNext(hole);
+                        partition.next().setPrevious(hole);
+                        
+                        memorySpaces.add(memorySpaces.indexOf(partition), hole);
+                        memorySpaces.remove(partition);
+                        break;
+                    }
+                    // case [hole]-->[process] --> [hole]
+                    if (partition.previous() instanceof Hole
+                        && partition.next() instanceof Hole
+                        ) {
+                        Hole hole1 = (Hole) partition.previous();
+                        Hole hole2 = (Hole) partition.next();
+                        hole1.setSize(hole1.getSizeProperty().getValue() + partition.getSizeProperty().getValue() + hole2.getSizeProperty().getValue());
+                        hole1.setNext(hole2.next());
+                        hole2.next().setPrevious(hole1);
+                        memorySpaces.remove(partition);
+                        memorySpaces.remove(hole2);
+                        break;
+                    }
+                }
+            }     
     }
 
     public MemorySpace getHead() {
@@ -54,18 +183,6 @@ public class Memory {
         return operatingSystemSpace;
     }
 
-    public void addMemorySpace(MemorySpace memorySpace) {
-        
-        this.tail.setNext(memorySpace);
-        this.tail = memorySpace;
-        this.memorySpaces.add(memorySpace);
-
-        if (memorySpace instanceof Hole) {
-            this.freeMemory += memorySpace.getSizeProperty().getValue();
-        } else {
-            this.freeMemory -= memorySpace.getSizeProperty().getValue();
-        }
-    }
 
     public int getMemorySize() {
         return memorySize;

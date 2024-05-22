@@ -11,5 +11,8 @@ public interface MemorySpace {
     public StringProperty getStatusProperty();
 
     public MemorySpace next();
+    public MemorySpace previous();
     public void setNext(MemorySpace next);
+    public void setPrevious(MemorySpace previous);
+    
 }

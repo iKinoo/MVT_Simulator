@@ -38,12 +38,12 @@
 
 <AnchorPane prefHeight="503.0" prefWidth="852.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.IndexController">
   <children>
-    <AnchorPane layoutX="511.0" layoutY="68.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="302.0" prefWidth="0.0">
+    <AnchorPane layoutX="511.0" layoutY="97.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="225.0" prefWidth="490.0">
       <children>
         <fx:include source="holesTable.fxml" />
       </children>
     </AnchorPane>
-    <AnchorPane layoutX="21.0" layoutY="68.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="302.0" prefWidth="0.0">
+    <AnchorPane layoutX="14.0" layoutY="97.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="302.0" prefWidth="0.0">
       <children>
         <fx:include source="processesTable.fxml" />
       </children>
@@ -53,12 +53,12 @@
         <Font size="24.0" />
       </font>
     </Text>
-    <AnchorPane layoutX="6.0" layoutY="384.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="302.0" prefWidth="0.0">
+    <AnchorPane layoutX="25.0" layoutY="430.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="302.0" prefWidth="0.0">
       <children>
         <fx:include source="partitionsTable.fxml" />
       </children>
     </AnchorPane>
-    <AnchorPane layoutX="528.0" layoutY="384.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="302.0" prefWidth="0.0">
+    <AnchorPane layoutX="486.0" layoutY="430.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="302.0" prefWidth="0.0">
       <children>
         <fx:include source="memoryTable.fxml" />
       </children>

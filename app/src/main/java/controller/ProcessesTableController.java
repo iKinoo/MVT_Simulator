@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
+import model.Memory;
 import model.Process;
 
 public class ProcessesTableController implements Initializable {
@@ -23,11 +23,17 @@ public class ProcessesTableController implements Initializable {
     @FXML
     private TableColumn<Process, Integer> processDuration;
 
+    Memory memory = Memory.getInstance();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         processName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         processSize.setCellValueFactory(cellData -> cellData.getValue().getSizeProperty().asObject());
         processArrivalTime.setCellValueFactory(cellData -> cellData.getValue().getArrivalTimeProperty().asObject());
         processDuration.setCellValueFactory(cellData -> cellData.getValue().getDurationProperty().asObject());
+
+        processesTable.getItems().setAll(memory.getProcesses());
     }
+
+    
 }

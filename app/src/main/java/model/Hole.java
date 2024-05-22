@@ -12,10 +12,21 @@ public class Hole implements MemorySpace {
     private Integer size;
     private String status;
     private MemorySpace next;
+    private MemorySpace previous;
 
     @Override
     public MemorySpace next() {
         return next;
+    }
+
+    @Override
+    public MemorySpace previous() {
+        return previous;
+    }
+
+    @Override
+    public void setPrevious(MemorySpace previous) {
+        this.previous = previous;
     }
 
     @Override
@@ -34,6 +45,15 @@ public class Hole implements MemorySpace {
         this.size = size;
         this.status = status;
     }
+
+    public void setSize(Integer size) {
+        this.size = size;
+    }
+
+    public void setLocation(Integer location){
+        this.location = location;
+    }
+
 
     public IntegerProperty getNumberProperty() {
         return new SimpleIntegerProperty(number);

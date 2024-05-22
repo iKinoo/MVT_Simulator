@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.Partition;
+import model.Memory;
 
 public class PartitionsTableController implements Initializable {
 
@@ -24,6 +25,8 @@ public class PartitionsTableController implements Initializable {
     @FXML
     private TableColumn<Partition, String> partitionProcess;
 
+    private  Memory memory = model.Memory.getInstance();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -32,6 +35,10 @@ public class PartitionsTableController implements Initializable {
         partitionSize.setCellValueFactory(cellData -> cellData.getValue().getSizeProperty().asObject());
         partitionStatus.setCellValueFactory(cellData -> cellData.getValue().getStatusProperty());
         partitionProcess.setCellValueFactory(cellData -> cellData.getValue().getProcess().getNameProperty());
+
+        partitionsTable.getItems().setAll(memory.getPartitions());
     }
+
+
 
 }

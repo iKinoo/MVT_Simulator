@@ -23,7 +23,7 @@ public class MemoryTableController implements Initializable {
     @FXML
     private TableColumn<MemorySpace, String> memorySpaceStatus;
 
-    Memory memory = Memory.getInstance();
+    private Memory memory = Memory.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -35,6 +35,8 @@ public class MemoryTableController implements Initializable {
 
         memoryTable.getItems().addAll(memory.getMemorySpaces());
     }
+
+    
 
   
 
