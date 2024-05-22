@@ -5,7 +5,6 @@ package main;
 
 import java.util.ArrayList;
 
-import controller.HolesTableController;
 import javafx.application.Application;
 import model.Memory;
 import model.Hole;
@@ -17,30 +16,7 @@ public class App {
     }
 
     public static void main(String[] args) {
-
         
-
-    
-        
-        
-        // Memory memory = Memory.getInstance();
-        // memory.addProcess(new model.Process("P1",10,2,1));
-
-        // Process p2 = new model.Process("P2",10,2,1);
-        // memory.addProcess(p2);
-
-        // Process p3 = new model.Process("P3",10,2,1);
-        // memory.addProcess(p3);
-
-        // Process p4 = new model.Process("P4",10,2,1);
-        // memory.addProcess(p4);
-
-        // memory.addProcess(new model.Process("P5",10,2,1));
-
-        // memory.removeProcess(p2);
-        // memory.removeProcess(p4);
-        // memory.removeProcess(p3);
-
         Application.launch(controller.GeneralController.class, args);
         System.out.println("Hello motherfuckers");
 

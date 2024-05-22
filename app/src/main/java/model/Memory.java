@@ -181,7 +181,12 @@ public class Memory {
                         Hole hole2 = (Hole) partition.next();
                         hole1.setSize(hole1.getSizeProperty().getValue() + partition.getSizeProperty().getValue() + hole2.getSizeProperty().getValue());
                         hole1.setNext(hole2.next());
-                        hole2.next().setPrevious(hole1);
+                        try {
+                            hole2.next().setPrevious(hole1);    
+                        } catch (Exception e) {
+                            System.err.println("Error: " + e.getMessage());
+                        }
+                        
                         memorySpaces.remove(partition);
                         memorySpaces.remove(hole2);
                         processes.remove(process);
