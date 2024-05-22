@@ -12,6 +12,7 @@ public class Process {
     private Integer size;
     private Integer arrivalTime;
     private Integer duration;
+    public Integer endTime;
 
     public Process(String name, Integer size, Integer arrivalTime, Integer duration) {
         this.name = name;

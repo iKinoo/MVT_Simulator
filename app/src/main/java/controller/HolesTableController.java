@@ -27,12 +27,18 @@ public class HolesTableController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        updateTable();
+
+    }
+
+    public void updateTable() {
 
         holeNumber.setCellValueFactory(cellData -> cellData.getValue().getNumberProperty().asObject());
         holeLocation.setCellValueFactory(cellData -> cellData.getValue().getLocationProperty().asObject());
         holeSize.setCellValueFactory(cellData -> cellData.getValue().getSizeProperty().asObject());
         holeStatus.setCellValueFactory(cellData -> cellData.getValue().getStatusProperty());
-        
+
+        holesTable.getItems().clear();
         holesTable.getItems().setAll(memory.getHoles());
     }
 }

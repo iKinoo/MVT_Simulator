@@ -32,18 +32,19 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="503.0" prefWidth="852.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.IndexController">
   <children>
-    <AnchorPane layoutX="511.0" layoutY="97.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="225.0" prefWidth="490.0">
+    <AnchorPane layoutX="521.0" layoutY="157.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="183.0" prefWidth="502.0">
       <children>
         <fx:include source="holesTable.fxml" />
       </children>
     </AnchorPane>
-    <AnchorPane layoutX="14.0" layoutY="97.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="302.0" prefWidth="0.0">
+    <AnchorPane layoutX="19.0" layoutY="157.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="241.0" prefWidth="502.0">
       <children>
         <fx:include source="processesTable.fxml" />
       </children>
@@ -63,5 +64,7 @@
         <fx:include source="memoryTable.fxml" />
       </children>
     </AnchorPane>
+      <Button fx:id="startButton" layoutX="40.0" layoutY="85.0" mnemonicParsing="false" onAction="#startMVT" text="Iniciar" />
+      <Button layoutX="521.0" layoutY="399.0" mnemonicParsing="false" onAction="#nextStep" text="siguiente" />
   </children>
 </AnchorPane>

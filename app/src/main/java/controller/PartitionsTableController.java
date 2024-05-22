@@ -30,15 +30,18 @@ public class PartitionsTableController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        updateTable();
+    }
+    public void updateTable() { 
+
         partitionNumber.setCellValueFactory(cellData -> cellData.getValue().getNumberProperty().asObject());
         partitionLocation.setCellValueFactory(cellData -> cellData.getValue().getLocationProperty().asObject());
         partitionSize.setCellValueFactory(cellData -> cellData.getValue().getSizeProperty().asObject());
         partitionStatus.setCellValueFactory(cellData -> cellData.getValue().getStatusProperty());
         partitionProcess.setCellValueFactory(cellData -> cellData.getValue().getProcess().getNameProperty());
 
+        partitionsTable.getItems().clear();
         partitionsTable.getItems().setAll(memory.getPartitions());
     }
-
-
 
 }

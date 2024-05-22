@@ -1,6 +1,7 @@
 package controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -27,12 +28,17 @@ public class ProcessesTableController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        updateTable();
+    }
+    public void updateTable() {
+    
         processName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         processSize.setCellValueFactory(cellData -> cellData.getValue().getSizeProperty().asObject());
         processArrivalTime.setCellValueFactory(cellData -> cellData.getValue().getArrivalTimeProperty().asObject());
         processDuration.setCellValueFactory(cellData -> cellData.getValue().getDurationProperty().asObject());
 
         processesTable.getItems().setAll(memory.getProcesses());
+        System.out.println("Update Table Processes");
     }
 
     

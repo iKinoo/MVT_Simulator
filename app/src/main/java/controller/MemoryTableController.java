@@ -27,12 +27,19 @@ public class MemoryTableController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        
+        updateTable();
+        
+    }
+    public void updateTable() {
+        
 
         memorySpaceNumber.setCellValueFactory(cellData -> cellData.getValue().getNumberProperty().asObject());
         memorySpaceLocation.setCellValueFactory(cellData -> cellData.getValue().getLocationProperty().asObject());
         memorySpaceSize.setCellValueFactory(cellData -> cellData.getValue().getSizeProperty().asObject());
         memorySpaceStatus.setCellValueFactory(cellData -> cellData.getValue().getStatusProperty());
 
+        memoryTable.getItems().clear();
         memoryTable.getItems().addAll(memory.getMemorySpaces());
     }
 

@@ -11,6 +11,7 @@ public class Memory {
     private MemorySpace tail;
     private final MemorySpace operatingSystemSpace;
     public ArrayList<MemorySpace> memorySpaces = new ArrayList<>();
+    public ArrayList<Process> processes = new ArrayList<>();
     private final int memorySize = 64;
     @SuppressWarnings("unused")
     private int freeMemory = 54;
@@ -35,6 +36,12 @@ public class Memory {
 
         memorySpaces.add(operatingSystemSpace);
         memorySpaces.add(tail);
+
+        processes.add(new Process("A", 8, 1, 7));
+        processes.add(new Process("B", 2,2, 7));
+        processes.add(new Process("C", 18, 3, 4));
+        processes.add(new Process("D", 6, 4, 6));
+        processes.add(new Process("E", 14, 5, 5));
     }
 
     public static Memory getInstance() {
@@ -65,16 +72,17 @@ public class Memory {
     }
 
     public ArrayList<Process> getProcesses() {
-        ArrayList<Process> processes = new ArrayList<>();
-        for (MemorySpace memorySpace : memorySpaces) {
-            if (memorySpace instanceof Partition) {
-                Partition partition = (Partition) memorySpace;
-                if (partition.getProcess() != null) {
-                    processes.add(partition.getProcess());
-                }
-            }
-        }
-        return processes;
+        // ArrayList<Process> processes = new ArrayList<>();
+        // for (MemorySpace memorySpace : memorySpaces) {
+        //     if (memorySpace instanceof Partition) {
+        //         Partition partition = (Partition) memorySpace;
+        //         if (partition.getProcess() != null) {
+        //             processes.add(partition.getProcess());
+        //         }
+        //     }
+        // }
+        // return processes;
+        return this.processes;
     }
 
     public void addProcess(Process process) {
@@ -99,10 +107,17 @@ public class Memory {
                     hole.setSize(hole.getSizeProperty().getValue() - process.getSizeProperty().getValue());
                     hole.setLocation(hole.getLocationProperty().getValue() + process.getSizeProperty().getValue());
                     memorySpaces.add(memorySpaces.indexOf(hole), partition);
+                    this.processes.add(process);
                     break;
                     
                 }
             }
+        }
+    }
+
+    public void addProcesses(ArrayList<Process> processes) {
+        for (Process process : processes) {
+            addProcess(process);
         }
     }
 
@@ -122,7 +137,9 @@ public class Memory {
                         hole.setSize(hole.getSizeProperty().getValue() + partition.getSizeProperty().getValue());
                         hole.setLocation(hole.getLocationProperty().getValue() - partition.getSizeProperty().getValue());
                         hole.setPrevious(partition.previous());
+
                         memorySpaces.remove(partition);
+                        processes.remove(process);
                         break;
                     }
                     // case [hole]-->[process] --> [partition]
@@ -134,6 +151,7 @@ public class Memory {
                         partition.previous().setNext(partition.next());
                         partition.next().setPrevious(partition.previous());
                         memorySpaces.remove(partition);
+                        processes.remove(process);
                         break;
                     }
                     // case [partition]-->[process] --> [partition]
@@ -152,6 +170,7 @@ public class Memory {
                         
                         memorySpaces.add(memorySpaces.indexOf(partition), hole);
                         memorySpaces.remove(partition);
+                        processes.remove(process);
                         break;
                     }
                     // case [hole]-->[process] --> [hole]
@@ -165,6 +184,7 @@ public class Memory {
                         hole2.next().setPrevious(hole1);
                         memorySpaces.remove(partition);
                         memorySpaces.remove(hole2);
+                        processes.remove(process);
                         break;
                     }
                 }
